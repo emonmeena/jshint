@@ -1115,7 +1115,12 @@ Lexer.prototype = {
       char = "\\\\";
       break;
     case "\"":
-      char = "\\\"";
+      this.triggerAsync("warning", {
+        code: "W114",
+        line: this.line,
+        character: this.char,
+        data: [ "\\'" ]
+      }, checks, function() {return state.jsonMode; });
       break;
     case "/":
       break;
